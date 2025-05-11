@@ -1,0 +1,33 @@
+{
+  "name": "odontograma",
+  "version": "1.0.0",
+  "description": "![GitHub Created At](https://img.shields.io/github/created-at/bardurt/odontograma?style=plastic)\r ![GitHub Stars](https://img.shields.io/github/stars/bardurt/odontograma?style=plastic)\r ![GitHub Forks](https://img.shields.io/github/forks/bardurt/odontograma?style=plastic)\r ![GitHub License](https://img.shields.io/github/license/bardurt/odontograma?style=plastic)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlanKBR/odontograma.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --config .eslintrc.cjs js/*.js",
+    "lint:fix": "eslint --config .eslintrc.cjs --fix js/*.js"
+  },
+  "bugs": {
+    "url": "https://github.com/AlanKBR/odontograma/issues"
+  },
+  "homepage": "https://github.com/AlanKBR/odontograma#readme",
+  "devDependencies": {
+    "eslint": "^9.26.0",
+    "html-validate": "^9.5.3"
+  }
+}

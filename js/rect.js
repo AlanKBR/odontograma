@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -55,7 +55,7 @@ Rect.prototype.checkCollision = function (cursX, cursY) {
             if (cursX < this.x + this.width) {
                 if (cursY < this.y + this.height) {
                     collision = true;
-                    
+
                     console.log("Collision cb: " + this.id);
                 }
             }
@@ -113,14 +113,10 @@ Rect.prototype.highlightWithColor = function (context, color, alpha) {
  */
 Rect.prototype.outline = function (context, color) {
     "use strict";
-    context.beginPath();
-    context.lineWidth = 1;
-    context.globalAlpha = 1;
-    context.strokeStyle = color;
-    context.rect(this.x, this.y, this.width, this.height);
-    context.stroke();
+    context.save();
+    context.strokeStyle = color || "#000";
+    context.strokeRect(this.x, this.y, this.width, this.height);
     context.restore();
-
 };
 
 /**
@@ -140,15 +136,15 @@ Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
     context.beginPath();
     context.globalAlpha = alpha;
     context.fillStyle = color;
-    
-    context.ellipse(this.x + this.width / 2, 
-                    this.y + this.height / 2, 
-                    (this.width - padding) / 2, 
-                    (this.height - padding) / 2, 
+
+    context.ellipse(this.x + this.width / 2,
+                    this.y + this.height / 2,
+                    (this.width - padding) / 2,
+                    (this.height - padding) / 2,
                     0,
                     0,
                     2 * Math.PI);
-                    
+
     context.fill();
     context.globalAlpha = 1;
     context.restore();

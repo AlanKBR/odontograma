@@ -11,11 +11,42 @@
             margin: 0px;
             padding: 0px;
         }
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+        }
+        .back-btn:hover {
+            background-color: #2980b9;
+        }
+        canvas {
+            margin-top: 50px;
+            display: block;
+        }
     </style>
+    <script src="js/constants.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/rect.js"></script>
+    <script src="js/damage.js"></script>
+    <script src="js/textBox.js"></script>
+    <script src="js/tooth.js"></script>
+    <script src="js/menuItem.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/odontogramaGenerator.js"></script>
+    <script src="js/collisionHandler.js"></script>
     <script src="js/engine.js" type="text/javascript"></script>
 </head>
 
 <body oncontextmenu="return false;">
+    <a href="/" class="back-btn">← Back to Home</a>
     <canvas id="canvas" width="648" height="800" crossorigin="anonymous"></canvas>
     <script>
         var canvas = document.getElementById('canvas');

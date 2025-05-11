@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -57,7 +57,6 @@ Renderer.prototype.init = function (canvas) {
     this.context = canvas.getContext('2d');
     this.width = canvas.width;
     this.height = canvas.height;
-
 
     this.drawSplash();
 };
@@ -136,7 +135,6 @@ Renderer.prototype.renderText14 = function (text, x, y, color) {
     this.context.restore();
 };
 
-
 Renderer.prototype.renderNameValueTabbed = function (name, value, tab, x, y, color) {
     "use strict";
 
@@ -166,8 +164,6 @@ Renderer.prototype.renderTextCenter = function (text, x, y, color) {
         color = "#000000"; // default color = black
     }
 
-
-
     this.context.textAlign = 'center';
     this.context.fillStyle = color;
     this.context.fillText(text, x, y);
@@ -187,7 +183,6 @@ Renderer.prototype.renderTextCenter16 = function (text, x, y, color) {
     this.context.restore();
 };
 
-
 /**
  * Method to set app settings to the renderer
  * @param {type} settings the settings for the application
@@ -198,12 +193,11 @@ Renderer.prototype.setSettings = function (settings) {
     this.settings = settings;
 };
 
-
 /**
  * Method to change the size of the canvas
  * @param {type} width new width of the canvas
  * @param {type} height new height of the canvas
- * @returns {void} 
+ * @returns {void}
  */
 Renderer.prototype.setCanvasSize = function (width, height) {
 
@@ -211,7 +205,6 @@ Renderer.prototype.setCanvasSize = function (width, height) {
     this.context.canvas.height = height;
 
 };
-
 
 Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLines) {
 
@@ -234,7 +227,6 @@ Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLin
         if (testWidth > maxWidth && n > 0) {
 
             this.renderText(line, x, y, "#000000");
-            //this.context.fillText(line, x, y);
 
             line = words[n] + " ";
 
@@ -254,7 +246,6 @@ Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLin
     }
 
     this.renderText(line, x, y, "#000000");
-//    this.context.fillText(line, x, y);
 
 };
 

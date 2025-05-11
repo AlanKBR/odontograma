@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  */
 
 /*
- * Class which represents a simple textbox 
+ * Class which represents a simple textbox
  */
 
 function TextBox() {
@@ -101,7 +101,7 @@ TextBox.prototype.drawText = function (context, color) {
     }
 
     this.rect.outline(context, "#000000");
-    
+
     context.textAlign = "center";
     context.fillStyle = color;
     context.font = "13px Arial";
@@ -113,7 +113,7 @@ TextBox.prototype.drawText = function (context, color) {
     context.stroke();
 
     context.restore();
-    
+
 };
 
 /**

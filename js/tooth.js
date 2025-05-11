@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -26,25 +26,24 @@ function Tooth() {
     this.surfaces = 0;
     this.highlight = false;
     this.highlightColor = "";
-    this.damages = Array();
-    this.checkBoxes = Array();
+    this.damages = [];
+    this.checkBoxes = [];
     this.rect = new Rect();
     this.textBox = new TextBox();
-    this.spacer = 20; // spacer to seperate tooth from surfaces
+    this.spacer = 20; // spacer to separate tooth from surfaces
     this.touching = false;
     this.address = 0;
     this.normalY = null;
     this.highY = null;
     this.blocked = false;
     this.constants = null;
-
 }
 
 /**
  * Method to set up position and dimension of the Tooth
  * @param {type} x position
  * @param {type} y position
- * @param {type} width 
+ * @param {type} width
  * @param {type} height
  * @returns {undefined}
  */
@@ -63,7 +62,6 @@ Tooth.prototype.setDimens = function (x, y, width, height) {
     this.textBox.setDimens(x, y, width, 20);
 
     this.textBox.setLabel(this.id);
-
 };
 
 /**
@@ -86,7 +84,6 @@ Tooth.prototype.setType = function (type) {
 
         this.textBox.rect.y = this.rect.y + this.rect.height + 22;
     }
-
 };
 
 /**
@@ -127,7 +124,7 @@ Tooth.prototype.toggleSelected = function (selected) {
 
 /**
  * Method to create 4 surfaces for the tooth, 5 checkboxes
- * @param {type} settings global settings 
+ * @param {type} settings global settings
  * @returns {undefined}
  */
 Tooth.prototype.create4Surfaces = function (settings) {
@@ -151,7 +148,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
     if (this.type === 0) {
 
-        var rect1 = new Rect();
+        let rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
@@ -161,7 +158,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
         this.checkBoxes.push(rect1);
 
-        var rect2 = new Rect();
+        let rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
@@ -171,7 +168,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
         this.checkBoxes.push(rect2);
 
-        var rect3 = new Rect();
+        let rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
@@ -181,7 +178,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
         this.checkBoxes.push(rect3);
 
-        var rect4 = new Rect();
+        let rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
@@ -193,7 +190,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
     } else {
 
-        var rect1 = new Rect();
+        let rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
@@ -203,7 +200,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
         this.checkBoxes.push(rect1);
 
-        var rect2 = new Rect();
+        let rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
@@ -213,7 +210,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
         this.checkBoxes.push(rect2);
 
-        var rect3 = new Rect();
+        let rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
@@ -223,7 +220,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
 
         this.checkBoxes.push(rect3);
 
-        var rect4 = new Rect();
+        let rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
@@ -234,12 +231,11 @@ Tooth.prototype.create4Surfaces = function (settings) {
         this.checkBoxes.push(rect4);
 
     }
-
 };
 
 /**
  * Method to create 4 surfaces for the tooth, 5 checkboxes
- * @param {type} settings global settings 
+ * @param {type} settings global settings
  * @returns {undefined}
  */
 Tooth.prototype.create5Surfaces = function (settings) {
@@ -250,21 +246,21 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
     /*
      * ids are in the following order
-     * 
+     *
      * upper
      *   1
      * 2 5 4
      *   3
-     *   
+     *
      * lower
      *   3
      * 4 5 2
-     *   1  
+     *   1
      */
 
     if (this.type === 0) {
 
-        var rect1 = new Rect();
+        let rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
@@ -274,7 +270,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect1);
 
-        var rect2 = new Rect();
+        let rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
@@ -284,7 +280,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect2);
 
-        var rect3 = new Rect();
+        let rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
@@ -294,7 +290,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect3);
 
-        var rect4 = new Rect();
+        let rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
@@ -304,7 +300,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect4);
 
-        var rect5 = new Rect();
+        let rect5 = new Rect();
 
         rect5.width = width;
         rect5.height = width;
@@ -316,7 +312,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
     } else {
 
-        var rect1 = new Rect();
+        let rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
@@ -326,7 +322,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect1);
 
-        var rect2 = new Rect();
+        let rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
@@ -336,7 +332,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect2);
 
-        var rect3 = new Rect();
+        let rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
@@ -346,7 +342,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect3);
 
-        var rect4 = new Rect();
+        let rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
@@ -356,7 +352,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
 
         this.checkBoxes.push(rect4);
 
-        var rect5 = new Rect();
+        let rect5 = new Rect();
 
         rect5.width = width;
         rect5.height = width;
@@ -367,12 +363,11 @@ Tooth.prototype.create5Surfaces = function (settings) {
         this.checkBoxes.push(rect5);
 
     }
-
 };
 
 /**
  * Base method for setting the surfaces for a tooth
- * @param {type} settings global settings 
+ * @param {type} settings global settings
  * @returns {undefined}
  */
 Tooth.prototype.createSurfaces = function (settings) {
@@ -434,7 +429,6 @@ Tooth.prototype.drawId = function (context) {
     context.strokeStyle = '#000000';
     context.stroke();
     context.restore();
-
 };
 
 /**
@@ -446,14 +440,12 @@ Tooth.prototype.drawId = function (context) {
 Tooth.prototype.drawCheckBoxes = function (context, settings) {
     "use strict";
 
-    for (var i = 0; i < this.checkBoxes.length; i++)
-    {
+    for (let i = 0; i < this.checkBoxes.length; i++) {
 
         if (this.checkBoxes[i].state === 1) {
 
             this.checkBoxes[i].fillColor(context, settings.COLOR_RED);
             this.checkBoxes[i].outline(context, "#000000");
-
 
         } else if (this.checkBoxes[i].state === 11) {
 
@@ -465,7 +457,6 @@ Tooth.prototype.drawCheckBoxes = function (context, settings) {
             this.checkBoxes[i].outline(context, "#000000");
 
         }
-
     }
 };
 
@@ -483,29 +474,26 @@ Tooth.prototype.drawTextBox = function (context, settings) {
     if (this.textBox.touching) {
         this.textBox.rect.highlightWithColor(context, "#36BE1B", 0.6);
     }
-
 };
 
 /**
  * Method to toggle Touchin on / off
- * @param {type} touch boolean value 
+ * @param {type} touch boolean value
  * @returns {undefined}
  */
 Tooth.prototype.onTouch = function (touch) {
     "use strict";
 
     if (this.tooth) {
-        
-        if (touch)
-        {
+
+        if (touch) {
             this.rect.y = this.highY;
 
         } else {
             this.rect.y = this.normalY;
         }
-   
     }
-    
+
     this.rect.touching = touch;
 };
 
@@ -586,7 +574,6 @@ Tooth.prototype.createDamage = function (damageId) {
         }
 
         damage.setDiagnostic();
-
     }
 
     return damage;
@@ -604,10 +591,10 @@ Tooth.prototype.toggleDamage = function (damageId) {
     // if there are no damages, then add.
     if (this.damages.length < 1) {
 
-        var d = this.createDamage(damageId);
+        var damage = this.createDamage(damageId);
 
-        if (d !== undefined) {
-            this.damages.push(d);
+        if (damage !== undefined) {
+            this.damages.push(damage);
         }
 
     } else {
@@ -616,11 +603,10 @@ Tooth.prototype.toggleDamage = function (damageId) {
         var splicer = -1;
 
         // check to see if this damage exists
-        for (var i = 0; i < this.damages.length; i++) {
+        for (let i = 0; i < this.damages.length; i++) {
 
             // found this damage
-            if (this.damages[i].id === damageId)
-            {
+            if (this.damages[i].id === damageId) {
                 console.log("Splicing array for tooth " + this.id);
 
                 splicer = i;
@@ -632,11 +618,11 @@ Tooth.prototype.toggleDamage = function (damageId) {
         // check if damage exists
         if (!exists) {
 
-            // damge is new, so add it
-            var d = this.createDamage(damageId);
+            // damage is new, so add it
+            var newDamage = this.createDamage(damageId);
 
-            if (d !== undefined) {
-                this.damages.push(d);
+            if (newDamage !== undefined) {
+                this.damages.push(newDamage);
             }
 
         } else {
@@ -645,7 +631,6 @@ Tooth.prototype.toggleDamage = function (damageId) {
         }
     }
 };
-
 
 /**
  * Method to render a Tooth on the screen with all its states
@@ -667,7 +652,7 @@ Tooth.prototype.render = function (context, settings, constants) {
             // center of tooth
             var cx = (this.rect.x + this.rect.width / 2);
 
-            // centerinng of the tooth in x axis
+            // centering of the tooth in x axis
             var dx = cx - this.image.naturalWidth / 2;
 
             // draw tooth
@@ -698,24 +683,20 @@ Tooth.prototype.render = function (context, settings, constants) {
     }
 
     // draw all damages
-    for (var i = 0; i < this.damages.length; i++) {
+    for (let i = 0; i < this.damages.length; i++) {
         this.damages[i].render(context, settings, constants);
     }
 
     // highlight textboxes
-    for (var i = 0; i < this.checkBoxes.length; i++)
-    {
-        if (this.checkBoxes[i].touching)
-        {
+    for (let i = 0; i < this.checkBoxes.length; i++) {
+        if (this.checkBoxes[i].touching) {
             this.checkBoxes[i].highlightWithColor(context, "#36BE1B", 0.6);
         }
-
     }
 
     // Draw textboxes
     if (this.tooth) {
         this.drawTextBox(context, settings);
-
     }
 
     // show area of tooth or space, only in DEBUG MODE
@@ -727,7 +708,6 @@ Tooth.prototype.render = function (context, settings, constants) {
             this.rect.highlightEllipse(context, "#FFD100", 0.4, 2);
         }
     }
-
 };
 
 /**
@@ -739,7 +719,7 @@ Tooth.prototype.getSurfaceById = function (id) {
     "use strict";
     var surface;
 
-    for (var i = 0; i < this.checkBoxes.length; i++) {
+    for (let i = 0; i < this.checkBoxes.length; i++) {
 
         if (this.checkBoxes[i].id === id) {
 
@@ -752,26 +732,24 @@ Tooth.prototype.getSurfaceById = function (id) {
 };
 
 /**
- * Metod to move a tooth up and down the Y axis
+ * Method to move a tooth up and down the Y axis
  * @param {type} movement amount of pixels to move the tooth
  * @returns {void}
  */
 Tooth.prototype.moveUpDown = function (movement) {
-
     this.normalY += movement;
     this.y += movement;
     this.rect.y += movement;
 
     this.textBox.rect.y += movement;
 
-    for (var i = 0; i < this.checkBoxes.length; i++) {
+    for (let i = 0; i < this.checkBoxes.length; i++) {
         this.checkBoxes[i].y += movement;
     }
 
-    for (var i = 0; i < this.damages.length; i++) {
+    for (let i = 0; i < this.damages.length; i++) {
         this.damages[i].rect.y += movement;
     }
-
 };
 
 /**
@@ -779,25 +757,21 @@ Tooth.prototype.moveUpDown = function (movement) {
  * @returns {void}
  */
 Tooth.prototype.popDamage = function () {
-
     let tail = this.damages.length - 1; // last item
 
     if (tail >= 0) {
         this.damages.splice(tail, 1);
     }
-
 };
 
 Tooth.prototype.refresh = function (constants) {
-
-    for (var i = 0; i < this.damages.length; i++) {
+    for (let i = 0; i < this.damages.length; i++) {
 
         if (this.constants.isWritable(this.damages[i].id)) {
 
             // damage should be attached to the textBox area
             this.damages[i].rect.x = this.textBox.rect.x;
             this.damages[i].rect.y = this.textBox.rect.y;
-
         }
     }
 
@@ -806,8 +780,7 @@ Tooth.prototype.refresh = function (constants) {
 
     this.textBox.touching = false;
 
-    for (var i = 0; i < this.checkBoxes.length; i++) {
+    for (let i = 0; i < this.checkBoxes.length; i++) {
         this.checkBoxes[i].touching = false;
     }
-
 };

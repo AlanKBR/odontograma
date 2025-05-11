@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  */
 
 /**
- * Helper class for holding id of damages 
+ * Helper class for holding id of damages
  * which can be added to the odontograma
  * @returns {Constants}
  */
@@ -57,7 +57,6 @@ function Constants() {
     this.SUPERFICIE_DESGASTADA = 37;
     this.SEMI_IMPACTACI0N = 38;
 
-
     this.all = [
         this.CARIES,
         this.CORONA_DEFINITIVA,
@@ -97,6 +96,7 @@ function Constants() {
         this.SUPERFICIE_DESGASTADA,
         this.SEMI_IMPACTACI0N
     ];
+
     /**
      * Method to check if a damage is writable, is text only
      * @param {type} arg id of the damage
@@ -131,17 +131,14 @@ function Constants() {
 
         var match = false;
 
-        for(var i = 0; i < this.all.length; i++)
-        {
-            if(this.all[i] === arg){
+        for (var i = 0; i < this.all.length; i++) {
+            if (this.all[i] === arg) {
                 match = true;
                 break;
             }
-            
         }
 
         return match;
     };
 }
-;
 

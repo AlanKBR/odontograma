@@ -1,5 +1,3 @@
-
-
 /**
  * Base class for tooth
  * @returns {MenuItem}
@@ -20,7 +18,6 @@ function MenuItem() {
     this.highY = null;
     this.blocked = false;
     this.constants = null;
-
 }
 
 
@@ -58,7 +55,7 @@ MenuItem.prototype.render = function (context, settings, constants) {
 
     if(this.highlight) {
         this.renderStateFocus(context);
-    } 
+    }
 
     this.renderLabel(context);
 };
@@ -89,7 +86,7 @@ MenuItem.prototype.renderStateNormal = function (context) {
 
     context.globalAlpha = 1;
 
-    this.rect.outline(context ,"#35353f")
+    this.rect.outline(context ,"#35353f");
 
     context.restore();
 
@@ -120,7 +117,7 @@ MenuItem.prototype.renderStateActive = function (context) {
 
     context.globalAlpha = 1;
 
-    this.rect.outline(context ,"#35353f")
+    this.rect.outline(context ,"#35353f");
 
     context.restore();
 
@@ -135,7 +132,7 @@ MenuItem.prototype.renderStateFocus = function (context) {
     context.fillStyle = "#b2dee7";
     context.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
     context.globalAlpha = 1.0;
-    this.rect.outline(context ,"#35353f")
+    this.rect.outline(context ,"#35353f");
     context.restore();
 
 };

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,7 +11,7 @@
 
 /**
  * Settings class for the application.
- * This class contains all the values, which are not 
+ * This class contains all the values, which are not
  * fixed in the engine.
  * @returns {Settings}
  */
@@ -22,7 +22,7 @@ function Settings() {
     this.HIHGLIGHT_SPACES = false;
     this.TOOTH_PADDING = 0;
     this.RECT_DIMEN = 10;
-    
+
     // colors
     this.COLOR_ON_TOUCH = "#FF8B00";
     this.COLOR_HIGHLIGHT = "#1CDE02";
@@ -31,5 +31,4 @@ function Settings() {
     this.COLOR_BLACK = "#000000";
     this.COLOR_HIGHLIGHT = "#00AEFF";
     this.COLOR_HIGHLIGHT_BAD = "#FF0000";
-
 }

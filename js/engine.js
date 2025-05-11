@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,18 +8,6 @@
  * Contributors:
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
-
-// include the necessary scripts
-document.writeln("<script type='text/javascript' src='js/constants.js'></script>");
-document.writeln("<script type='text/javascript' src='js/settings.js'></script>");
-document.writeln("<script type='text/javascript' src='js/rect.js'></script>");
-document.writeln("<script type='text/javascript' src='js/damage.js'></script>");
-document.writeln("<script type='text/javascript' src='js/textBox.js'></script>");
-document.writeln("<script type='text/javascript' src='js/tooth.js'></script>");
-document.writeln("<script type='text/javascript' src='js/menuItem.js'></script>");
-document.writeln("<script type='text/javascript' src='js/renderer.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontogramaGenerator.js'></script>");
-document.writeln("<script type='text/javascript' src='js/collisionHandler.js'></script>");
 
 function Engine() {
     "use strict";
@@ -73,7 +61,7 @@ function Engine() {
     // flag to toggle multiselection on or off
     this.multiSelect = false;
 
-    // array to hold values for multiselection. When selecting 
+    // array to hold values for multiselection. When selecting
     // a range of teeth
     this.multiSelection = [];
 
@@ -95,14 +83,13 @@ function Engine() {
 
     this.menuItems = [];
 
-    this.buttons = []
+    this.buttons = [];
 
-    this.adult = new MenuItem()
+    this.adult = new MenuItem();
 
-    this.child = new MenuItem()
+    this.child = new MenuItem();
 
-    this.clear = new MenuItem()
-
+    this.clear = new MenuItem();
 }
 
 /**
@@ -167,8 +154,7 @@ Engine.prototype.init = function () {
 
     this.spaces = this.odontSpacesAdult;
 
-    this.createMenu()
-
+    this.createMenu();
 
     this.adult = new MenuItem();
     this.adult.setUp(10, 150, 75, 20);
@@ -182,15 +168,12 @@ Engine.prototype.init = function () {
     this.child.active = false;
     this.buttons.push(this.child);
 
-    this.clear = new MenuItem()
     this.clear = new MenuItem();
-    this.clear.setUp((this.canvas.width-10) - 76, 150, 75, 20);
+    this.clear.setUp((this.canvas.width - 10) - 76, 150, 75, 20);
     this.clear.textBox.text = "Reset";
     this.clear.active = false;
     this.buttons.push(this.clear);
-
 };
-
 
 /**
  * Method for updating the engine
@@ -216,7 +199,6 @@ Engine.prototype.update = function () {
             this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
                 128, this.canvas.height, "#000000");
 
-
             this.renderer.renderText("Selected Damage : " + this.selectedDamage,
                 220, this.canvas.height, "#000000");
         }
@@ -232,10 +214,9 @@ Engine.prototype.update = function () {
  */
 Engine.prototype.removeHighlight = function () {
     "use strict";
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (let i = 0; i < this.mouth.length; i++) {
         this.mouth[i].highlight = false;
     }
-
 };
 
 /**
@@ -252,25 +233,25 @@ Engine.prototype.highlightMultiSelection = function (tooth) {
         if (this.multiSelection.length > 0) {
 
             // reset the highlighting
-            for (var i = 0; i < this.mouth.length; i++) {
+            for (let i = 0; i < this.mouth.length; i++) {
                 this.mouth[i].highlight = false;
                 this.mouth[i].highlightColor = this.settings.COLOR_HIGHLIGHT;
             }
 
-            var tooth1 = this.multiSelection[0];
+            let tooth1 = this.multiSelection[0];
 
             // check if these teeth are same types
             if (tooth1.type === tooth.type) {
 
                 // get indices for both teeth
-                var index1 = this.getIndexForTooth(tooth1);
-                var index2 = this.getIndexForTooth(tooth);
+                let index1 = this.getIndexForTooth(tooth1);
+                let index2 = this.getIndexForTooth(tooth);
 
-                var begin = Math.min(index1, index2);
-                var end = Math.max(index1, index2);
+                let begin = Math.min(index1, index2);
+                let end = Math.max(index1, index2);
 
                 // highlight the teeth between begin and end
-                for (var i = begin; i <= end; i++) {
+                for (let i = begin; i <= end; i++) {
 
                     this.mouth[i].highlight = true;
                 }
@@ -283,7 +264,7 @@ Engine.prototype.highlightMultiSelection = function (tooth) {
                     // is not allowed
                     if ((end - begin) > 1) {
 
-                        for (var i = begin; i <= end; i++) {
+                        for (let i = begin; i <= end; i++) {
 
                             this.mouth[i].highlightColor = this.settings.COLOR_HIGHLIGHT_BAD;
                         }
@@ -300,9 +281,7 @@ Engine.prototype.highlightMultiSelection = function (tooth) {
     } catch (error) {
         console.log("Engine highlightMultiSelection e: " + error.message);
     }
-
 };
-
 
 /**
  * Method to reset the multiselection - deactivate multiselection
@@ -324,9 +303,9 @@ Engine.prototype.resetMultiSelect = function () {
  */
 Engine.prototype.getIndexForTooth = function (tooth) {
     "use strict";
-    var index = -1;
+    let index = -1;
 
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (let i = 0; i < this.mouth.length; i++) {
 
         if (this.mouth[i].id === tooth.id) {
             index = i;
@@ -335,7 +314,6 @@ Engine.prototype.getIndexForTooth = function (tooth) {
     }
 
     return index;
-
 };
 
 /**
@@ -350,16 +328,14 @@ Engine.prototype.handleMultiSelection = function () {
     // start and end
     if (this.multiSelection.length === 2) {
 
-
         let tooth1 = this.multiSelection[0];
         let tooth2 = this.multiSelection[1];
 
-
         // get the indices for the teeth which have been selected
-        var index1 = this.getIndexForTooth(tooth1);
-        var index2 = this.getIndexForTooth(tooth2);
+        let index1 = this.getIndexForTooth(tooth1);
+        let index2 = this.getIndexForTooth(tooth2);
 
-        var valid = true;
+        let valid = true;
 
         // make sure that we dont select the same tooth 2 times
         if (index1 === index2) {
@@ -374,8 +350,8 @@ Engine.prototype.handleMultiSelection = function () {
         // only toggle damages if everyhting is okey
         if (valid) {
 
-            var start = Math.min(index1, index2);
-            var end = Math.max(index1, index2);
+            let start = Math.min(index1, index2);
+            let end = Math.max(index1, index2);
 
             // check which damage should be added or removed from the selected
             // teeth
@@ -387,11 +363,10 @@ Engine.prototype.handleMultiSelection = function () {
                 this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
                     this.constants);
 
-                for (var i = start + 1; i <= end - 1; i++) {
+                for (let i = start + 1; i <= end - 1; i++) {
 
                     this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER,
                         this.constants);
-
                 }
 
             } else if (this.selectedDamage === this.constants.PROTESIS_FIJA_LEFT) {
@@ -402,11 +377,10 @@ Engine.prototype.handleMultiSelection = function () {
                 this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT,
                     this.constants);
 
-                for (var i = start + 1; i <= end - 1; i++) {
+                for (let i = start + 1; i <= end - 1; i++) {
 
                     this.mouth[i].toggleDamage(this.constants.PROTESIS_FIJA_CENTER,
                         this.constants);
-
                 }
 
             } else if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
@@ -419,9 +393,7 @@ Engine.prototype.handleMultiSelection = function () {
                     this.mouth[end].toggleDamage(this.constants.TRANSPOSICION_RIGHT,
                         this.constants);
                 }
-
             }
-
         }
 
         // reset multiselection when it is finished
@@ -431,7 +403,6 @@ Engine.prototype.handleMultiSelection = function () {
 
         this.update();
     }
-
 };
 
 /**
@@ -446,7 +417,6 @@ Engine.prototype.addToMultiSelection = function (tooth) {
     if (this.multiSelection.length === 2) {
         this.handleMultiSelection();
     }
-
 };
 
 /**
@@ -456,25 +426,23 @@ Engine.prototype.addToMultiSelection = function (tooth) {
  */
 Engine.prototype.isAlphanumeric = function (input) {
     "use strict";
-    var valid = false;
+    let valid = false;
 
-    var letters = /^[0-9a-zA-Z]+$/;
+    let letters = /^[0-9a-zA-Z]+$/;
 
     if (input.match(letters)) {
         valid = true;
-
     }
 
     return valid;
 };
-
 
 /**
  * Method to add text to a textbox. This method only allows alphanumeric values
  * to be added to a texbox
  * @param {type} textBox for the text
  * @param {type} text to add to the textbox
- * @returns {void} 
+ * @returns {void}
  */
 Engine.prototype.setTextToTextBox = function (textBox, text) {
     "use strict";
@@ -498,12 +466,11 @@ Engine.prototype.setTextToTextBox = function (textBox, text) {
  */
 Engine.prototype.onTextBoxClicked = function (textBox) {
     "use strict";
-    var message = "Add 3 letter dental code.";
+    let message = "Add 3 letter dental code.";
 
-    var text = prompt(message, "");
+    let text = prompt(message, "");
 
     this.setTextToTextBox(textBox, text);
-
 };
 
 /**
@@ -514,9 +481,9 @@ Engine.prototype.onTextBoxClicked = function (textBox) {
 Engine.prototype.mouseRightClickSpace = function (event) {
     "use strict";
 
-    var shouldUpdate = false;
+    let shouldUpdate = false;
 
-    for (var i = 0; i < this.spaces.length; i++) {
+    for (let i = 0; i < this.spaces.length; i++) {
         // check collision for current space
         if (this.spaces[i].checkCollision(
             this.getXpos(event),
@@ -532,7 +499,6 @@ Engine.prototype.mouseRightClickSpace = function (event) {
     if (shouldUpdate) {
         this.update();
     }
-
 };
 
 /**
@@ -543,17 +509,16 @@ Engine.prototype.mouseRightClickSpace = function (event) {
 Engine.prototype.mouseRightClickTooth = function (event) {
     "use strict";
 
-    var shouldUpdate = false;
+    let shouldUpdate = false;
 
     // loop through all teeth
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (let i = 0; i < this.mouth.length; i++) {
 
         // check if there is a collision with the textBox
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
             this.getYpos(event))) {
 
             this.mouth[i].textBox.text = "";
-
         }
 
         // check collision for current tooth
@@ -565,16 +530,14 @@ Engine.prototype.mouseRightClickTooth = function (event) {
             shouldUpdate = true;
         }
 
-
         // check if there is a collision with one of the tooth surfaces
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
+        for (let j = 0; j < this.mouth[i].checkBoxes.length; j++) {
 
             if (this.mouth[i].checkBoxes[j].checkCollision(
                 this.getXpos(event),
                 this.getYpos(event))) {
 
-
-                // handle collision with surface    
+                // handle collision with surface
                 this.mouth[i].checkBoxes[j].state = 0;
 
                 shouldUpdate = true;
@@ -589,16 +552,16 @@ Engine.prototype.mouseRightClickTooth = function (event) {
 };
 
 /**
- * Method to handle mouse click event, when the spaces between the teeth 
+ * Method to handle mouse click event, when the spaces between the teeth
  * are in the forground.
  * @param {type} event mouse click event
  * @returns {void}
  */
 Engine.prototype.mouseClickSpace = function (event) {
     "use strict";
-    var shouldUpdate = false;
+    let shouldUpdate = false;
 
-    for (var i = 0; i < this.spaces.length; i++) {
+    for (let i = 0; i < this.spaces.length; i++) {
         // check collision for current space
         if (this.spaces[i].checkCollision(
             this.getXpos(event),
@@ -616,7 +579,6 @@ Engine.prototype.mouseClickSpace = function (event) {
     if (shouldUpdate) {
         this.update();
     }
-
 };
 
 /**
@@ -626,10 +588,10 @@ Engine.prototype.mouseClickSpace = function (event) {
  */
 Engine.prototype.mouseClickTooth = function (event) {
     "use strict";
-    var shouldUpdate = false;
+    let shouldUpdate = false;
 
     // loop through all teeth
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (let i = 0; i < this.mouth.length; i++) {
 
         // check if there is a collision with the textBox
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
@@ -664,7 +626,7 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                 } else {
 
-                    var d = new Object();
+                    let d = {};
 
                     d.tooth = this.mouth[i].id;
                     d.damage = "";
@@ -673,24 +635,23 @@ Engine.prototype.mouseClickTooth = function (event) {
                     d.note = "";
 
                     this.createDiagnostico(d);
-
                 }
             }
         }
 
         // check if there is a collision with one of the tooth surfaces
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
+        for (let j = 0; j < this.mouth[i].checkBoxes.length; j++) {
 
             if (this.mouth[i].checkBoxes[j].checkCollision(
                 this.getXpos(event),
                 this.getYpos(event))) {
 
-                console.log("Collision Checkbox : " + this.selectedDamage)
+                console.log("Collision Checkbox : " + this.selectedDamage);
 
                 if (this.currentType === 0) {
 
-                    console.log("Collision Checkbox : " + this.selectedDamage)
-                    // handle collision with surface    
+                    console.log("Collision Checkbox : " + this.selectedDamage);
+                    // handle collision with surface
                     this.collisionHandler.handleCollisionCheckBox(
                         this.mouth[i].checkBoxes[j],
                         this.selectedDamage);
@@ -699,7 +660,7 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                 } else {
 
-                    var d = new Object();
+                    let d = {};
 
                     d.tooth = "0";
                     d.damage = "";
@@ -708,20 +669,16 @@ Engine.prototype.mouseClickTooth = function (event) {
                     d.note = "";
 
                     this.createDiagnostico(d);
-
                 }
             }
         }
     }
 
-
     // only update if something new has occurred
     if (shouldUpdate) {
         this.update();
     }
-
 };
-
 
 /**
  * Method to handle mouse click event when the teeth are in the foreground
@@ -730,10 +687,10 @@ Engine.prototype.mouseClickTooth = function (event) {
  */
 Engine.prototype.mouseClickMenu = function (event) {
     "use strict";
-    var shouldUpdate = false;
+    let shouldUpdate = false;
 
     // loop through all teeth
-    for (var i = 0; i < this.menuItems.length; i++) {
+    for (let i = 0; i < this.menuItems.length; i++) {
 
         // check collision for current tooth
         if (this.menuItems[i].rect.checkCollision(
@@ -741,13 +698,13 @@ Engine.prototype.mouseClickMenu = function (event) {
             this.getYpos(event))) {
 
             if (this.menuItems[i].active) {
-                for (var j = 0; j < this.menuItems.length; j++) {
+                for (let j = 0; j < this.menuItems.length; j++) {
                     this.menuItems[j].active = false;
                 }
                 this.menuItems[i].active = false;
                 this.selectedDamage = 0;
             } else {
-                for (var j = 0; j < this.menuItems.length; j++) {
+                for (let j = 0; j < this.menuItems.length; j++) {
                     this.menuItems[j].active = false;
                 }
                 this.menuItems[i].active = true;
@@ -757,7 +714,6 @@ Engine.prototype.mouseClickMenu = function (event) {
             this.setDamage(this.selectedDamage);
             console.log("Mouse click. MenuItem: ");
 
-
             shouldUpdate = true;
         }
     }
@@ -766,14 +722,11 @@ Engine.prototype.mouseClickMenu = function (event) {
     if (shouldUpdate) {
         this.update();
     }
-
 };
-
 
 Engine.prototype.mouseClickControls = function (event) {
     "use strict";
-    var shouldUpdate = false;
-
+    let shouldUpdate = false;
 
     if (this.adult.rect.checkCollision(
         this.getXpos(event),
@@ -790,7 +743,6 @@ Engine.prototype.mouseClickControls = function (event) {
         this.update();
     }
 
-
     if (this.child.rect.checkCollision(
         this.getXpos(event),
         this.getYpos(event))) {
@@ -806,7 +758,6 @@ Engine.prototype.mouseClickControls = function (event) {
         this.update();
     }
 
-
     if (this.clear.rect.checkCollision(
         this.getXpos(event),
         this.getYpos(event))) {
@@ -815,11 +766,9 @@ Engine.prototype.mouseClickControls = function (event) {
         this.reset();
     }
 
-
     if (shouldUpdate) {
         this.update();
     }
-
 };
 
 /**
@@ -834,7 +783,6 @@ Engine.prototype.onMouseClick = function (event) {
 
     if (!this.preview) {
 
-
         if (event.which === 3) {
 
             // check what is in foreground
@@ -845,7 +793,6 @@ Engine.prototype.onMouseClick = function (event) {
             } else {
 
                 this.mouseRightClickTooth(event);
-
             }
 
         } else if (event.which === 1) {
@@ -857,15 +804,12 @@ Engine.prototype.onMouseClick = function (event) {
             } else {
 
                 this.mouseClickTooth(event);
-
             }
 
             this.mouseClickMenu(event);
             this.mouseClickControls(event);
-
         }
     }
-
 };
 
 /**
@@ -890,9 +834,9 @@ Engine.prototype.followMouse = function (event) {
 Engine.prototype.mouseMoveSpaces = function (event) {
     "use strict";
 
-    for (var i = 0; i < this.spaces.length; i++) {
+    let update = false;
 
-        var update = false;
+    for (let i = 0; i < this.spaces.length; i++) {
 
         if (this.spaces[i].checkCollision(this.getXpos(event),
             this.getYpos(event))) {
@@ -920,7 +864,7 @@ Engine.prototype.mouseMoveSpaces = function (event) {
 Engine.prototype.mouseMoveTeeth = function (event) {
     "use strict";
 
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (let i = 0; i < this.mouth.length; i++) {
 
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
             this.getYpos(event))) {
@@ -930,7 +874,6 @@ Engine.prototype.mouseMoveTeeth = function (event) {
         } else {
 
             this.mouth[i].textBox.touching = false;
-
         }
 
         if (this.mouth[i].checkCollision(this.getXpos(event),
@@ -948,7 +891,7 @@ Engine.prototype.mouseMoveTeeth = function (event) {
             this.mouth[i].onTouch(false);
         }
 
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
+        for (let j = 0; j < this.mouth[i].checkBoxes.length; j++) {
 
             if (this.mouth[i].checkBoxes[j].checkCollision(
                 this.getXpos(event), this.getYpos(event))) {
@@ -961,13 +904,12 @@ Engine.prototype.mouseMoveTeeth = function (event) {
     }
 };
 
-
 Engine.prototype.mouseMoveMenuItems = function (event) {
     "use strict";
 
-    for (var i = 0; i < this.menuItems.length; i++) {
+    let update = false;
 
-        var update = false;
+    for (let i = 0; i < this.menuItems.length; i++) {
 
         if (this.menuItems[i].rect.checkCollision(this.getXpos(event),
             this.getYpos(event))) {
@@ -990,7 +932,6 @@ Engine.prototype.mouseMoveMenuItems = function (event) {
         this.child.highlight = false;
     }
 
-
     if (this.adult.rect.checkCollision(this.getXpos(event),
         this.getYpos(event))) {
         this.adult.highlight = true;
@@ -1006,7 +947,6 @@ Engine.prototype.mouseMoveMenuItems = function (event) {
     } else {
         this.clear.highlight = false;
     }
-
 
     if (update) {
         this.update();
@@ -1031,7 +971,6 @@ Engine.prototype.onMouseMove = function (event) {
         } else {
 
             this.mouseMoveTeeth(event);
-
         }
 
         this.mouseMoveMenuItems(event);
@@ -1039,7 +978,6 @@ Engine.prototype.onMouseMove = function (event) {
 
     // update mouse cooridnates
     this.followMouse(event);
-
 };
 
 /*'
@@ -1049,18 +987,18 @@ Engine.prototype.onMouseMove = function (event) {
 Engine.prototype.reset = function () {
     "use strict";
     // reset all teeth
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (let i = 0; i < this.mouth.length; i++) {
         this.mouth[i].damages.length = 0;
 
         this.mouth[i].textBox.text = "";
 
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
+        for (let j = 0; j < this.mouth[i].checkBoxes.length; j++) {
             this.mouth[i].checkBoxes[j].state = 0;
         }
     }
 
     // reset all spaces
-    for (var i = 0; i < this.spaces.length; i++) {
+    for (let i = 0; i < this.spaces.length; i++) {
         this.spaces[i].damages.length = 0;
     }
 
@@ -1071,7 +1009,7 @@ Engine.prototype.reset = function () {
 /**
  * Method to get all the data from the engine.
  * Struct for a damage is the following
- * 
+ *
  * struct damage{
  *      tooth: int;
  *      damage: int;
@@ -1082,19 +1020,18 @@ Engine.prototype.reset = function () {
  */
 Engine.prototype.getData = function () {
     "use strict";
-    var list = Array();
-
+    let list = [];
 
     // First: get data for adult odontograp
 
     // Get data for all the spaces in the odontograma
-    for (var i = 0; i < this.odontSpacesAdult.length; i++) {
+    for (let i = 0; i < this.odontSpacesAdult.length; i++) {
 
-        var t1 = this.odontSpacesAdult[i];
+        let t1 = this.odontSpacesAdult[i];
 
-        for (var j = 0; j < t1.damages.length; j++) {
+        for (let j = 0; j < t1.damages.length; j++) {
 
-            var d = new Object();
+            let d = {};
 
             d.tooth = t1.id;
             d.damage = t1.damages[j].id;
@@ -1104,18 +1041,17 @@ Engine.prototype.getData = function () {
 
             list.push(d);
         }
-
     }
 
     // get all data from the teeth in the odontograma
-    for (var i = 0; i < this.odontAdult.length; i++) {
+    for (let i = 0; i < this.odontAdult.length; i++) {
 
-        var t1 = this.odontAdult[i];
+        let t1 = this.odontAdult[i];
 
         // get the notes from the text boxes
         if (t1.textBox.text !== "") {
 
-            var d = new Object();
+            let d = {};
 
             d.tooth = t1.id;
             d.damage = "";
@@ -1124,13 +1060,12 @@ Engine.prototype.getData = function () {
             d.note = t1.textBox.text;
 
             list.push(d);
-
         }
 
         // get the damages registered for the tooth
-        for (var j = 0; j < t1.damages.length; j++) {
+        for (let j = 0; j < t1.damages.length; j++) {
 
-            var d = new Object();
+            let d = {};
 
             d.tooth = t1.id;
             d.damage = "" + t1.damages[j].id;
@@ -1142,11 +1077,10 @@ Engine.prototype.getData = function () {
         }
 
         // get data for the checkboxes (surfaces) for current tooth
-        for (var j = 0; j < t1.checkBoxes.length; j++) {
+        for (let j = 0; j < t1.checkBoxes.length; j++) {
 
             if (t1.checkBoxes[j].state !== 0) {
-                var d = new Object();
-
+                let d = {};
 
                 d.tooth = t1.id;
                 d.damage = t1.checkBoxes[j].state;
@@ -1162,13 +1096,13 @@ Engine.prototype.getData = function () {
     // Second: get data for child odontograp
 
     // Get data for all the spaces in the odontograma
-    for (var i = 0; i < this.odontSpacesChild.length; i++) {
+    for (let i = 0; i < this.odontSpacesChild.length; i++) {
 
-        var t1 = this.odontSpacesChild[i];
+        let t1 = this.odontSpacesChild[i];
 
-        for (var j = 0; j < t1.damages.length; j++) {
+        for (let j = 0; j < t1.damages.length; j++) {
 
-            var d = new Object();
+            let d = {};
 
             d.tooth = t1.id;
             d.damage = t1.damages[j].id;
@@ -1178,18 +1112,17 @@ Engine.prototype.getData = function () {
 
             list.push(d);
         }
-
     }
 
     // get all data from the teeth in the odontograma
-    for (var i = 0; i < this.odontChild.length; i++) {
+    for (let i = 0; i < this.odontChild.length; i++) {
 
-        var t1 = this.odontChild[i];
+        let t1 = this.odontChild[i];
 
         // get the notes from the text boxes
         if (t1.textBox.text !== "") {
 
-            var d = new Object();
+            let d = {};
 
             d.tooth = t1.id;
             d.damage = "";
@@ -1198,13 +1131,12 @@ Engine.prototype.getData = function () {
             d.note = t1.textBox.text;
 
             list.push(d);
-
         }
 
         // get the damages registered for the tooth
-        for (var j = 0; j < t1.damages.length; j++) {
+        for (let j = 0; j < t1.damages.length; j++) {
 
-            var d = new Object();
+            let d = {};
 
             d.tooth = t1.id;
             d.damage = "" + t1.damages[j].id;
@@ -1216,11 +1148,10 @@ Engine.prototype.getData = function () {
         }
 
         // get data for the checkboxes (surfaces) for current tooth
-        for (var j = 0; j < t1.checkBoxes.length; j++) {
+        for (let j = 0; j < t1.checkBoxes.length; j++) {
 
             if (t1.checkBoxes[j].state !== 0) {
-                var d = new Object();
-
+                let d = {};
 
                 d.tooth = t1.id;
                 d.damage = t1.checkBoxes[j].state;
@@ -1244,10 +1175,10 @@ Engine.prototype.save = function () {
     "use strict";
 
     // save image as png
-    var link = document.createElement('a');
+    let link = document.createElement('a');
 
     // create a unique name
-    var name = Date.now() + ".png";
+    let name = Date.now() + ".png";
 
     link.download = name;
 
@@ -1255,20 +1186,18 @@ Engine.prototype.save = function () {
     link.href = this.canvas.toDataURL("image/png")
         .replace("image/png", "image/octet-stream");
 
-
     // download the image
     link.click();
-
 };
 
 /*
  * Helper function to map keyboard keys into usable values Just for debugging
  * @param {type} event keyDown event
- * @returns {Number} 
+ * @returns {Number}
  */
 Engine.prototype.keyMapper = function (event) {
     "use strict";
-    var value = 0;
+    let value = 0;
 
     if (event.key === "q") {
         value = 10;
@@ -1336,19 +1265,19 @@ Engine.prototype.onButtonClick = function (event) {
         this.print();
     }
 
-
     if (event.key === "v") {
 
-        var data = this.getData();
+        let data = this.getData();
 
         console.log("Data length: " + data.length);
 
-        for (var i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
 
-            console.log("Data[" + i + "]: " + data[i].tooth + ", "
-                + data[i].damage + ", " + data[i].surface + ", "
-                + data[i].note);
-
+            console.log(
+                "Data[" + i + "]: " + data[i].tooth + ", " +
+                data[i].damage + ", " + data[i].surface + ", " +
+                data[i].note
+            );
         }
 
     } else if (event.key === "-") {
@@ -1367,7 +1296,7 @@ Engine.prototype.onButtonClick = function (event) {
 
             this.currentType = 0;
 
-            var damage;
+            let damage;
 
             let key = Number(event.key);
 
@@ -1405,7 +1334,6 @@ Engine.prototype.onButtonClick = function (event) {
                 this.mouth = this.odontAdult;
                 this.spaces = this.odontSpacesAdult;
                 this.update();
-
             }
 
             if (event.key === "ArrowRight") {
@@ -1437,7 +1365,6 @@ Engine.prototype.setDamage = function (damage) {
     if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
         this.multiSelect = true;
         this.multiSelection.length = 0;
-
     }
 
     if (this.selectedDamage === this.constants.ORTODONTICO_FIJO_END) {
@@ -1486,16 +1413,13 @@ Engine.prototype.changeView = function (which) {
         this.spaces = this.odontSpacesChild;
         this.update();
 
-
     } else {
 
         this.adultShowing = true;
         this.mouth = this.odontAdult;
         this.spaces = this.odontSpacesAdult;
         this.update();
-
     }
-
 };
 
 /**
@@ -1505,14 +1429,13 @@ Engine.prototype.changeView = function (which) {
  */
 Engine.prototype.start = function () {
     "use strict";
-    var self = this;
+    let self = this;
 
-    // show splash screen for 3 seconds 
+    // show splash screen for 3 seconds
     // then continue
     setTimeout(function () {
         self.update();
     }, 1500);
-
 };
 
 /**
@@ -1523,20 +1446,18 @@ Engine.prototype.start = function () {
  */
 Engine.prototype.getToothById = function (id) {
     "use strict";
-    var tooth;
+    let tooth;
 
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (let i = 0; i < this.mouth.length; i++) {
 
         if (this.mouth[i].id === id) {
 
             tooth = this.mouth[i];
             break;
-
         }
     }
 
     return tooth;
-
 };
 
 /**
@@ -1546,20 +1467,18 @@ Engine.prototype.getToothById = function (id) {
  */
 Engine.prototype.getSpaceById = function (id) {
     "use strict";
-    var space;
+    let space;
 
-    for (var i = 0; i < this.spaces.length; i++) {
+    for (let i = 0; i < this.spaces.length; i++) {
 
         if (this.spaces[i].id === id) {
 
             space = this.spaces[i];
             break;
-
         }
     }
 
     return space;
-
 };
 
 /**
@@ -1578,7 +1497,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
         // if id is less than 1000 then we have to find a tooth
         if (tooth < 1000) {
 
-            var t = this.getToothById(tooth);
+            let t = this.getToothById(tooth);
 
             this.collisionHandler.handleCollision(t, damage);
 
@@ -1591,21 +1510,18 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
             this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
         }
 
-
     } else {
 
         // the damage should be added to a surface of a tooth
-        var surfaceId = tooth + "_" + surface;
+        let surfaceId = tooth + "_" + surface;
 
-        var t = this.getToothById(tooth);
-        var surface = t.getSurfaceById(surfaceId);
+        let t = this.getToothById(tooth);
+        let surf = t.getSurfaceById(surfaceId);
 
-        this.collisionHandler.handleCollisionCheckBox(surface, damage);
+        this.collisionHandler.handleCollisionCheckBox(surf, damage);
 
         this.setTextToTextBox(t.textBox, note);
-
     }
-
 };
 
 /**
@@ -1616,9 +1532,9 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
  */
 Engine.prototype.setDataSource = function (dataArray) {
     "use strict";
-    var res = dataArray.split(",");
+    let res = dataArray.split(",");
 
-    var i = 0;
+    let i = 0;
     while (i < res.length) {
 
         // loop through all and add damage
@@ -1626,7 +1542,6 @@ Engine.prototype.setDataSource = function (dataArray) {
 
         i = i + 4;
     }
-
 };
 
 Engine.prototype.createDiagnostico = function (diagnostico) {
@@ -1647,7 +1562,6 @@ Engine.prototype.togglePrintPreview = function () {
     } else {
         this.showPrintPreview();
     }
-
 };
 
 /**
@@ -1663,7 +1577,7 @@ Engine.prototype.showPrintPreview = function () {
 
     // reset positions
 
-    for (var i = 0; i < this.odontAdult.length; i++) {
+    for (let i = 0; i < this.odontAdult.length; i++) {
 
         if (this.odontAdult[i].type === 1) {
             this.odontAdult[i].moveUpDown(this.printPreviewPositionChange * 2 + 120);
@@ -1673,20 +1587,18 @@ Engine.prototype.showPrintPreview = function () {
             this.odontAdult[i].moveUpDown(120);
             this.odontAdult[i].textBox.rect.y -= 20;
         }
-
     }
 
-    for (var i = 0; i < this.odontSpacesAdult.length; i++) {
+    for (let i = 0; i < this.odontSpacesAdult.length; i++) {
 
         if (this.odontSpacesAdult[i].type === 1) {
             this.odontSpacesAdult[i].moveUpDown(this.printPreviewPositionChange * 2 + 120);
         } else {
             this.odontSpacesAdult[i].moveUpDown(120);
         }
-
     }
 
-    for (var i = 0; i < this.odontChild.length; i++) {
+    for (let i = 0; i < this.odontChild.length; i++) {
 
         this.odontChild[i].moveUpDown(this.printPreviewPositionChange + 120);
 
@@ -1695,27 +1607,23 @@ Engine.prototype.showPrintPreview = function () {
         } else {
             this.odontChild[i].textBox.rect.y += this.printPreviewPositionChange;
         }
-
     }
 
-    for (var i = 0; i < this.odontSpacesChild.length; i++) {
+    for (let i = 0; i < this.odontSpacesChild.length; i++) {
 
         this.odontSpacesChild[i].moveUpDown(this.printPreviewPositionChange + 120);
-
     }
 
     // realligne all teeth and damages
-    for (var i = 0; i < this.odontAdult.length; i++) {
+    for (let i = 0; i < this.odontAdult.length; i++) {
         this.odontAdult[i].refresh(this.constants);
     }
 
-    for (var i = 0; i < this.odontChild.length; i++) {
+    for (let i = 0; i < this.odontChild.length; i++) {
         this.odontChild[i].refresh(this.constants);
     }
 
-
     this.update();
-
 };
 
 /**
@@ -1731,7 +1639,7 @@ Engine.prototype.hidePrintPreview = function () {
 
     // update the positions of all the data in the odontoram
 
-    for (var i = 0; i < this.odontAdult.length; i++) {
+    for (let i = 0; i < this.odontAdult.length; i++) {
 
         if (this.odontAdult[i].type === 1) {
             this.odontAdult[i].moveUpDown(-this.printPreviewPositionChange * 2 - 120);
@@ -1740,10 +1648,9 @@ Engine.prototype.hidePrintPreview = function () {
             this.odontAdult[i].moveUpDown(-120);
             this.odontAdult[i].textBox.rect.y += 20;
         }
-
     }
 
-    for (var i = 0; i < this.odontSpacesAdult.length; i++) {
+    for (let i = 0; i < this.odontSpacesAdult.length; i++) {
 
         if (this.odontSpacesAdult[i].type === 1) {
             this.odontSpacesAdult[i].moveUpDown(-this.printPreviewPositionChange * 2 - 120);
@@ -1752,7 +1659,7 @@ Engine.prototype.hidePrintPreview = function () {
         }
     }
 
-    for (var i = 0; i < this.odontChild.length; i++) {
+    for (let i = 0; i < this.odontChild.length; i++) {
 
         this.odontChild[i].moveUpDown(-this.printPreviewPositionChange - 120);
 
@@ -1763,24 +1670,21 @@ Engine.prototype.hidePrintPreview = function () {
         }
     }
 
-    for (var i = 0; i < this.odontSpacesChild.length; i++) {
+    for (let i = 0; i < this.odontSpacesChild.length; i++) {
 
         this.odontSpacesChild[i].moveUpDown(-this.printPreviewPositionChange - 120);
-
     }
 
-    for (var i = 0; i < this.odontAdult.length; i++) {
+    for (let i = 0; i < this.odontAdult.length; i++) {
         this.odontAdult[i].refresh();
     }
 
-    for (var i = 0; i < this.odontChild.length; i++) {
+    for (let i = 0; i < this.odontChild.length; i++) {
         this.odontChild[i].refresh();
     }
 
     this.update();
-
 };
-
 
 Engine.prototype.loadPatientData = function (office, patient, number,
     treatmentNumber, treatmentDate,
@@ -1794,12 +1698,11 @@ Engine.prototype.loadPatientData = function (office, patient, number,
     this.treatmentData.dentist = dentist;
     this.treatmentData.observations = observations;
     this.treatmentData.specs = specs;
-
 };
 
 Engine.prototype.createHeader = function () {
 
-    var seperation = 18;
+    let seperation = 18;
 
     this.renderer.renderTextCenter16("Odontogram",
         this.renderer.width / 2,
@@ -1807,7 +1710,6 @@ Engine.prototype.createHeader = function () {
         "#000000");
 
     seperation = 20;
-
 
     this.renderer.renderText14("Office",
         4,
@@ -1819,7 +1721,6 @@ Engine.prototype.createHeader = function () {
         seperation * 2,
         "#000000");
 
-
     this.renderer.renderText14("Patient",
         4,
         seperation * 3,
@@ -1829,7 +1730,6 @@ Engine.prototype.createHeader = function () {
         100,
         seperation * 3,
         "#000000");
-
 
     this.renderer.renderText14("Appoint No.",
         4,
@@ -1860,7 +1760,6 @@ Engine.prototype.createHeader = function () {
         100,
         seperation * 5,
         "#000000");
-
 };
 
 /**
@@ -1898,9 +1797,9 @@ Engine.prototype.printPreview = function () {
 
 Engine.prototype.print = function () {
 
-    var dataUrl = document.getElementById('canvas').toDataURL();
+    let dataUrl = document.getElementById('canvas').toDataURL();
 
-    var windowContent = '<!DOCTYPE html>';
+    let windowContent = '<!DOCTYPE html>';
     windowContent += '<html lang="en">';
     windowContent += '<head>';
     windowContent += '<meta charset="utf-8"/>';
@@ -1911,7 +1810,7 @@ Engine.prototype.print = function () {
     windowContent += '</body>';
     windowContent += '</html>';
 
-    var printWin = window.open('', '', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
+    let printWin = window.open('', '', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
     printWin.document.open();
     printWin.document.write(windowContent);
 
@@ -1925,7 +1824,6 @@ Engine.prototype.print = function () {
     this.preview = false;
     this.hidePrintPreview();
 };
-
 
 Engine.prototype.createMenu = function () {
 
@@ -2019,16 +1917,12 @@ Engine.prototype.createMenu = function () {
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Extrusion", 9);
     posX = posX + xSeparator;
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Post", 10);
-
-}
-
-
+};
 
 Engine.prototype.createMenuButton = function (x, y, width, height, text, id) {
-    var menuitem = new MenuItem();
+    let menuitem = new MenuItem();
     menuitem.setUp(x, y, width, height);
-    menuitem.textBox.text = text
+    menuitem.textBox.text = text;
     menuitem.id = id;
     this.menuItems.push(menuitem);
-
-}
+};
