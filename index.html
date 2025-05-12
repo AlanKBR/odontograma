@@ -11,24 +11,7 @@
             margin: 0px;
             padding: 0px;
         }
-        .back-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-        }
-        .back-btn:hover {
-            background-color: #2980b9;
-        }
         canvas {
-            margin-top: 50px;
             display: block;
         }
     </style>
@@ -46,7 +29,6 @@
 </head>
 
 <body oncontextmenu="return false;">
-    <a href="/" class="back-btn">← Back to Home</a>
     <canvas id="canvas" width="648" height="800" crossorigin="anonymous"></canvas>
     <script>
         var canvas = document.getElementById('canvas');

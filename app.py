@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, send_from_directory
 
 app = Flask(
     __name__, static_url_path="", static_folder=".", template_folder="templates"
@@ -6,15 +6,9 @@ app = Flask(
 
 
 @app.route("/")
-def home():
-    """Render the home page with a button to open the odontogram"""
-    return render_template("home.html")
-
-
-@app.route("/odontogram")
 def odontogram():
-    """Redirect to the original odontogram HTML page"""
-    return redirect(url_for("static", filename="index.html"))
+    """Serve the odontogram as the only page."""
+    return send_from_directory(".", "index.html")
 
 
 if __name__ == "__main__":
